@@ -1,7 +1,9 @@
 # PROYECTO DE DOMOTICA MICROPROGRAMACION 2021
 
 Javier Alexander Morales Melara 
+
 Erick Josué Saravia Aragón
+
 Keny Lizbeth Chávez Torres
 
 ## Instrucciones
