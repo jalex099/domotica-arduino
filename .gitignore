@@ -1,4 +1,6 @@
 *.iml
+*.workspace
+*.pdsbak
 .gradle
 /local.properties
 /.idea/caches
