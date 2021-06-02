@@ -12,9 +12,7 @@ val = analogRead (A1);                           //Realiza la lectura del pin A1
 float mv = (val/1024.0)*5000;                    //Declaramos variable de tipo float y operamos para obtener el resultado en celsius (grados centigrados)
 float temp = mv/10;                              //Declaramos variable de tipo float y operamos para obtener el resultado en celsius (grados centigrados)
 
-Serial.print ("TEMPERATURE = ");                 //Imprimimos en pantalla TEMPERATURE =
 Serial.print (temp);                             //Imprimimos el valor de la variable temp
-Serial.print ("*C");                             //Imprimimos en pantalla *C
 Serial.println ();                               //Salto de linea
 
 if(temp>37.6){                                   //Si temp es mayor que 37.6
