@@ -1,23 +1,33 @@
-#include <Servo.h>
+int val;                                         //Declaramos variable de tipo entero val
+int val2;
 
-#include <NewPing.h>    //usamos la libreria para el sensor iltrasonico
-const int UltrasonicPin = 3; //pin ultrasonic tr
-const int MaxDistance = 200; //maxima distancia
-Servo servoMotor;   //seclarar el servo
-NewPing sonar(UltrasonicPin, 2, MaxDistance); //creacion del objeto
 void setup() {
-  Serial.begin(9600);
-  servoMotor.attach(4); //ubicacion del ping del servo
+  Serial.begin (9600);                             //Inicializamos la comunicacion serial a 9600bps
+  pinMode(A1, INPUT);                              //Asignamos el pin A1 como entrada (Sensor de Temperatura)
+  pinMode(A2, INPUT);                              //Asignamos el pin A1 como entrada (Sensor de proximidad)
+  pinMode(6, OUTPUT);                              //Asignamos el pin 6 como salida (Led Verde)
+  pinMode(7, OUTPUT);                              //Asignamos el pin 7 como salida (Led Rojo)
 }
+
 void loop() {
-  
-  delay(1000);                      // esperar 1000ms entre pings 
-  int cm = sonar.ping_cm();   //obtiene el valor en cm del sensor
-  Serial.print(cm); // obtener el valor en cm (0 = fuera de rango)
-  Serial.println("cm");
-  if(cm >50){     //condicion si esta a 50 cm
-    servoMotor.write(180);
-  }else{
-    servoMotor.write(0);
+  val = analogRead (A1);                           //Realiza la lectura del pin A1 (Sensor) y el valor lo guarda en la variable val
+  val2 = digitalRead (2);
+  float mv = (val / 1024.0) * 5000;                //Declaramos variable de tipo float y operamos para obtener el resultado en celsius (grados centigrados)
+  float temp = mv / 10;                            //Declaramos variable de tipo float y operamos para obtener el resultado en celsius (grados centigrados)
+
+  Serial.print (temp);                             //Imprimimos el valor de la variable temp
+  Serial.println ();                               //Salto de linea
+
+  if(val2>0){
+    Serial.print("Movimiento detectado");
   }
+  if (temp > 37.6) {                               //Si temp es mayor que 37.6
+    digitalWrite(6, LOW);                        //Apaga el Led Verde
+    digitalWrite(7, HIGH);                       //Prende el Led Rojo
+  }
+  else {                                           //Si temp NO es mayor que 37.6
+    digitalWrite(6, HIGH);                         //Prende el Led Verde
+    digitalWrite(7, LOW);                          //Apaga el Led Rojo
+  }
+  delay(1000);                                     //Espera de 1 segundo
 }
