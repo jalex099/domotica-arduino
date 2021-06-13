@@ -28,11 +28,21 @@ parser.on("open", () => {
   console.log("Puerto serial abierto");
 });
 
-
+io.on("connection",(socket)=>{
+  socket.on('led-on',(varLed) =>{
+    console.log(varLed);
+  })
+})
 //emit por socket
 parser.on("data", (data) => {
   io.emit('temp',data)
   console.log(data.toString());
+  /*port.write('main screen turn on', function(err) {
+    if (err) {
+      return console.log('Error on write: ', err.message)
+    }
+    console.log('message written')
+  })*/
 });
 
 port.on("error", (err) => {
