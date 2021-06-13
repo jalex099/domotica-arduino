@@ -20,13 +20,7 @@ server.listen(3000,function () {
 const SerialPort = require("serialport");
 const Readline = SerialPort.parsers.Readline;
 
-const port = new SerialPort(
-  "COM5",
-  {
-    baudRate: 9600,
-  },
-  false
-);
+const port = require("./port")
 
 const parser = port.pipe(new Readline({ delimiter: "\r\n" }));
 
@@ -38,6 +32,7 @@ parser.on("open", () => {
 //emit por socket
 parser.on("data", (data) => {
   io.emit('temp',data)
+  console.log(data.toString());
 });
 
 port.on("error", (err) => {
