@@ -9,7 +9,7 @@
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
-/test-server/node_modules
+/web-server/node_modules
 .DS_Store
 /build
 /captures
