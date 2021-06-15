@@ -35,8 +35,14 @@ io.on("connection",(socket)=>{
 })
 //emit por socket
 parser.on("data", (data) => {
-  io.emit('temp',data)
-  console.log(data.toString());
+  try{
+    console.log(data);
+    let json = JSON.parse(data);
+    io.emit('data',json)
+  } catch(err){
+    console.log("Error" + err.toString());
+  }
+  
   /*port.write('main screen turn on', function(err) {
     if (err) {
       return console.log('Error on write: ', err.message)

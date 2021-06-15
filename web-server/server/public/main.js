@@ -1,8 +1,10 @@
 const sockets = io();
 
-sockets.on("temp",function (data) {
+sockets.on("data",function (data) {
+    let obj = data;
+
     const temp = document.getElementById('temperature')
-    temp.innerHTML = `${data} °C` 
+    temp.innerHTML = `${Math.floor(obj.temperature)} °C ` 
 })
 
 let btnSendData = document.querySelector("#btnSendData");
