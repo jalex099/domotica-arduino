@@ -4,52 +4,111 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap"
+      rel="stylesheet"
+    />
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous"
     />
-    <title>Temperatura</title>
-    <style>
-      html,
-      body {
-        height: 100%;
-      }
-      body {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #34495e;
-      }
-    </style>
+    <link rel="stylesheet" href="./styles.css" />
+    <title>Arduino - Dom&oacute;tica</title>
   </head>
   <body>
-
-    <div class="container">
-        <div class="row justify-content-center align-self-center" >
-            <div class="card">
-                <h1 id="temperature" class="display-1 p-4"></h1>
-            </div>
-            <button id="btnSendData">Enviar data</button>
+    <nav class="navbar fixed-top">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Dom&oacute;tica | GRUPO 1</a>
+      </div>
+    </nav>
+    <div class="container my-5">
+      <div class="row">
+        <div class="col-12 col-lg-3 py-4">
+          <button class="btn btn-light">Encender regadero</button>
+          <hr class="hr-white">
+          <button class="btn btn-danger">Apagar regadero</button>
         </div>
+
+        <!--   COLUMNA DIVISORIA     -->
+
+        <div class="col-12 col-lg-9 py-4">
+          <h2 class="font-weight-bold text-center mb-3">
+            Estadisticas y datos.
+          </h2>
+          <div
+            class="
+              w-50
+              mx-auto
+              my-4
+              d-flex
+              flex-wrap flex-row
+              justify-content-center
+              align-items-center
+            "
+          >
+            <div class="w-50 d-flex justify-content-between align-items-center">
+              <i class="fas fa-temperature-low"></i>
+              <h6 id="temperature" class="font-weight-bold"></h6>
+            </div>
+            <p
+              id="alertTemperature"
+              class="text-center alert alert-danger my-2 hidden"
+            >
+              ALERTA! Temperatura muy alta.
+            </p>
+          </div>
+          <!-- *******************************************************************************-->
+          <div
+            class="
+              w-50
+              mx-auto
+              my-4
+              d-flex
+              flex-wrap flex-row
+              justify-content-center
+              align-items-center
+            "
+          >
+            <div class="w-75 d-flex justify-content-between align-items-center">
+              <i class="fas fa-warehouse"></i>
+              <h6 id="stateDoorGarden" class=""></h6>
+            </div>
+            <p class="text-justify" id="indicationsDoorGarden"></p>
+          </div>
+          <!-- *******************************************************************************-->
+          <div
+            class="
+              w-50
+              mx-auto
+              my-4
+              d-flex
+              flex-wrap flex-row
+              justify-content-center
+              align-items-center
+            "
+          >
+            <div class="w-75 d-flex justify-content-between align-items-center">
+              <i class="fas fa-warehouse"></i>
+              <h6 id="stateDoorGarage" class=""></h6>
+            </div>
+            <p class="text-justify" id="indicationsDoorGarage"></p>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script src="/socket.io/socket.io.js" charset="UTF-8"></script>
     <script src="main.js" charset="UTF-8"></script>
     <script
-      src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
       crossorigin="anonymous"
     ></script>
     <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      src="https://kit.fontawesome.com/6a78dcf05d.js"
       crossorigin="anonymous"
     ></script>
   </body>

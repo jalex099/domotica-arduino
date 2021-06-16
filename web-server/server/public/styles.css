@@ -1,0 +1,55 @@
+* {
+  font-family: 'Quicksand', sans-serif;
+}
+
+html, body {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  min-height: 100vh;
+  background-color: #222222;
+  color: #EAE6E5;
+}
+
+nav {
+  background-color: #F95738 !important;
+}
+
+nav a {
+  color: #EAE6E5;
+  -webkit-transition: 0.5s ease all;
+  transition: 0.5s ease all;
+}
+
+nav a:hover {
+  color: white;
+}
+
+.dark {
+  background-color: #323232 !important;
+  color: whitesmoke !important;
+}
+
+.hr-white {
+  background-color: #EAE6E5;
+}
+
+.text-blue {
+  color: #2B3A67;
+}
+
+.text-red {
+  color: #F95738;
+}
+
+.text-yellow {
+  color: #D19C1D;
+}
+
+.hidden {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+/*# sourceMappingURL=styles.css.map */

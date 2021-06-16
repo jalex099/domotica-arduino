@@ -1,0 +1,59 @@
+$red: #F95738 ;
+$blue: #2B3A67;
+$white: #EAE6E5;
+$yellow: #D19C1D;
+$black: rgb(34,34,34);
+$grey: rgb(50,50,50);
+
+*{
+    font-family: 'Quicksand', sans-serif;
+}
+
+html,body{
+    box-sizing: border-box;
+    min-height: 100vh;
+    background-color: $black;
+    color: $white;
+}
+
+
+nav{
+    background-color: $red !important;
+    a{
+        color: #EAE6E5;
+        transition: 0.5s ease all;
+        &:hover{
+            color: white;
+        }
+    }
+}
+
+.dark{
+    background-color: $grey !important;
+    color: whitesmoke !important;
+}
+
+.hr-white{
+    background-color: $white;
+}
+
+.text-blue{
+    color: $blue;
+}
+
+.text-red{
+    color: $red;
+}
+
+.text-yellow{
+    color: $yellow;
+}
+
+.hidden{
+    display: none;
+}
+
+.show{
+    display: block;
+}
+
