@@ -1,0 +1,10 @@
+Intento fallido|2021-06-19 6:36:47
+Abierta correctamente|2021-06-19 6:36:59
+Intento fallido|2021-06-19 6:37:16
+Abierta correctamente|2021-06-19 6:37:38
+Intento fallido|2021-06-19 6:38:23
+Abierta correctamente|2021-06-19 6:38:37
+Abierta correctamente|2021-06-19 6:38:48
+Intento fallido|2021-06-19 6:40:08
+Intento fallido|2021-06-19 6:40:17
+Abierta correctamente|2021-06-19 6:40:24

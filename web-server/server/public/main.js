@@ -1,6 +1,7 @@
 const sockets = io();
 
-//let btnSendData = document.querySelector("#btnSendData");
+let btnSendData = document.querySelector("#btnSendData");
+let btnSendDataOff = document.querySelector("#btnSendDataOff");
 let temperature = document.querySelector("#temperature");
 let stateDoorGarden = document.querySelector("#stateDoorGarden");
 let indicationsDoorGarden = document.querySelector("#indicationsDoorGarden");
@@ -8,9 +9,13 @@ let stateDoorGarage = document.querySelector("#stateDoorGarage");
 let indicationsDoorGarage = document.querySelector("#indicationsDoorGarage");
 let alertTemperature = document.querySelector("#alertTemperature");
 
-/*btnSendData.addEventListener("click",()=>{
-  sockets.emit("led-on", 1)
-})*/
+btnSendData.addEventListener("click",()=>{
+  sockets.emit("led", "A")
+})
+
+btnSendDataOff.addEventListener("click",()=>{
+  sockets.emit("led", "B")
+})
 
 sockets.on("data", function (data) {
   //OBTENCION DE LA DATA

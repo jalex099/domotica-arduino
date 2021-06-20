@@ -1,4 +1,27 @@
 #include <Servo.h>
+#include <Keypad.h>
+
+const byte ROWS = 4;
+const byte COLS = 4;
+
+char keys[ROWS][COLS]={
+  {
+    '7','8','9','A'
+  },{
+    '4','5','6','B'
+  },{
+    '1','2','3','C'
+  },{
+    '*','0','#','D'
+  }
+};
+
+byte rowPins[ROWS]={4,7,8,9};
+byte colPins[COLS]={10,11,12,13};
+
+//CONTRASENIA
+char Password[4];
+int dir=0;
 
 //INPUTS DEL ARDUINO
 int TEMP_SENSOR = A0;
@@ -10,6 +33,9 @@ int SERVO_DOOR_GARAGE = 6;
 //VARIABLES DEL SERVO
 Servo SERVO_GARDEN;
 Servo SERVO_GARAGE;
+
+//VARIABLES DEL KEYPAD
+Keypad keypad = Keypad(makeKeymap(keys),rowPins,colPins,ROWS,COLS);
 
 //DIRECCION DEL SERVO
 int DIR_SERVO_GARDEN=0;
@@ -24,8 +50,15 @@ int VAL_TEMP_SENSOR;
 int VAL_PROXIMITY_DOOR_GARDEN;
 int VAL_PROXIMITY_DOOR_GARAGE;
 
+//LECTURA DE LA PUERTA CON CERROJO DIGITAL
+int VAL_DIGITAL_DOOR;
+
 //ALMACENA EL VALOR ANTERIOR DE TEMPERATURA
 int PAST_TEMP_VALUE; 
+
+//LED OPCIONES
+int LED_OK = A2;
+int LED_ERROR = A1; 
 
 
 
@@ -41,15 +74,18 @@ void setup() {
 
   SERVO_GARDEN.write(0); //SE ESTABLECEN LOS SERVOS EN DIRECCION 0
   SERVO_GARAGE.write(0);
+  pinMode(LED_OK,OUTPUT);   //SE ESTABLECEN LOS LEDS DE ERROR Y CORRECTO
+  pinMode(LED_ERROR,OUTPUT);
 }
 
 void loop() {
+  
   VAL_TEMP_SENSOR = analogRead(TEMP_SENSOR); //SE OBTIENE EL VALOR ANALOGO DEL SENSOR
   VAL_PROXIMITY_DOOR_GARDEN = digitalRead(PROXIMITY_DOOR_GARDEN);   //SE OBTIENE EL VALOR DEL SENSOR DE PROXIMIDAD
   VAL_PROXIMITY_DOOR_GARAGE = digitalRead(PROXIMITY_DOOR_GARAGE);   //SE OBTIENE EL VALOR DEL SENSOR DE PROXIMIDAD
   evaluateDoorGarden(VAL_PROXIMITY_DOOR_GARDEN);    //SE LLAMA LA FUNCION DE EVALUAR LA PUERTA DEL PATIO INTERNO
   evaluateDoorGarage(VAL_PROXIMITY_DOOR_GARAGE);    //SE LLAMA LA FUNCION DE EVALUAR LA PUERTA DE LA COCHERA
-  
+  digitalDoor();
   getTemperature(VAL_TEMP_SENSOR);    //SE LLAMA LA FUNCION DE OBTENCION DE LA TEMPERATURA
   sendData();     //FUNCION PARA ENVIAR LOS DATOS DEL ARDUINO POR EL PUERTO SERIAL
 }
@@ -57,20 +93,42 @@ void loop() {
 //EVENTO SERIAL QUE COMUNICA CON LA WEB
 void serialEvent(){
   int response = Serial.read();
-
   switch (response) {
   case 65:
     // statements
-    digitalWrite(2,HIGH);
+    digitalWrite(A1,HIGH);
     break;
   case 66:
     // statements
-    digitalWrite(2,LOW);
+    digitalWrite(A1,LOW);
     break;
   default:
     // statements
     break;
 }
+}
+
+//FUNCION PARA EVALUAR LA PUERTA CON CERROJO DIGITAL
+void digitalDoor(){
+  char key = keypad.getKey();
+  if(key){
+    VAL_DIGITAL_DOOR = 0;
+    digitalWrite(LED_OK,LOW);
+    digitalWrite(LED_ERROR,LOW);
+    Password[dir]=key;
+    dir+=1;
+    if(dir==4){
+      if(Password[0] == '1' && Password[1] == '2' && Password[2] == '3' && Password[3] == '4'){
+        digitalWrite(LED_OK,HIGH);
+        VAL_DIGITAL_DOOR = 1;
+        dir=0;
+      } else{
+        digitalWrite(LED_ERROR,HIGH);
+        dir=0;
+        VAL_DIGITAL_DOOR = 2;
+      }
+    }
+  };
 }
 
 //FUNCION QUE OBTIENE LA TEMPERATURA
@@ -136,6 +194,11 @@ void sendData(){
   Serial.print(",");
   Serial.print("\"garageDoor\":");
   Serial.print(VAL_PROXIMITY_DOOR_GARAGE);
+
+  //CERROJO DIGITAL
+  Serial.print(",");
+  Serial.print("\"digitalDoor\":");
+  Serial.print(VAL_DIGITAL_DOOR);
 
 
   //ENDING
