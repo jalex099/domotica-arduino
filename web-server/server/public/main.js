@@ -1,7 +1,11 @@
 const sockets = io();
 
-let btnSendData = document.querySelector("#btnSendData");
-let btnSendDataOff = document.querySelector("#btnSendDataOff");
+let btnTurnOnFanMainRoom = document.querySelector("#btnTurnOnFanMainRoom");
+let btnTurnOffFanMainRoom = document.querySelector("#btnTurnOffFanMainRoom");
+let btnTurnOnFanBasicRoom = document.querySelector("#btnTurnOnFanBasicRoom");
+let btnTurnOffFanBasicRoom = document.querySelector("#btnTurnOffFanBasicRoom");
+let btnTurnOnSprinklers = document.querySelector("#btnTurnOnSprinklers");
+let btnTurnOffSprinklers = document.querySelector("#btnTurnOffSprinklers");
 let temperature = document.querySelector("#temperature");
 let stateDoorGarden = document.querySelector("#stateDoorGarden");
 let indicationsDoorGarden = document.querySelector("#indicationsDoorGarden");
@@ -9,13 +13,29 @@ let stateDoorGarage = document.querySelector("#stateDoorGarage");
 let indicationsDoorGarage = document.querySelector("#indicationsDoorGarage");
 let alertTemperature = document.querySelector("#alertTemperature");
 
-btnSendData.addEventListener("click",()=>{
-  sockets.emit("led", "A")
-})
+btnTurnOnFanMainRoom.addEventListener("click", () => {
+  sockets.emit("serial", "A");
+});
 
-btnSendDataOff.addEventListener("click",()=>{
-  sockets.emit("led", "B")
-})
+btnTurnOffFanMainRoom.addEventListener("click", () => {
+  sockets.emit("serial", "B");
+});
+
+btnTurnOnFanBasicRoom.addEventListener("click", () => {
+  sockets.emit("serial", "C");
+});
+
+btnTurnOffFanBasicRoom.addEventListener("click", () => {
+  sockets.emit("serial", "D");
+});
+
+btnTurnOnSprinklers.addEventListener("click", () => {
+  sockets.emit("serial", "E");
+});
+
+btnTurnOffSprinklers.addEventListener("click", () => {
+  sockets.emit("serial", "F");
+});
 
 sockets.on("data", function (data) {
   //OBTENCION DE LA DATA

@@ -32,9 +32,9 @@ let pastDigitalDoor;
 
 //sockets events
 io.on("connection", (socket) => {
-  socket.on("led", (varLed) => {
+  socket.on("serial", (data) => {
     try {
-      port.write(varLed);
+      port.write(data);
     } catch {}
   });
 });
