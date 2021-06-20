@@ -12,6 +12,9 @@ let indicationsDoorGarden = document.querySelector("#indicationsDoorGarden");
 let stateDoorGarage = document.querySelector("#stateDoorGarage");
 let indicationsDoorGarage = document.querySelector("#indicationsDoorGarage");
 let alertTemperature = document.querySelector("#alertTemperature");
+let stateSprinklers = document.querySelector("#stateSprincklers");
+let stateMainRoom = document.querySelector("#stateMainRoom");
+let stateBasicRoom = document.querySelector("#stateBasicRoom");
 
 btnTurnOnFanMainRoom.addEventListener("click", () => {
   sockets.emit("serial", "A");
@@ -84,5 +87,75 @@ sockets.on("data", function (data) {
       "La puerta de la cochera esta abierta, persona pasando en este momento.";
     stateDoorGarage.classList.remove("text-white");
     stateDoorGarage.classList.add("text-red");
+  }
+
+  if (obj.sprinklers == 0) {
+    stateSprinklers.innerHTML = "Apagado";
+  } else {
+    stateSprinklers.innerHTML = "Encendido";
+  }
+
+  if (obj.mainRoom == 0) {
+    stateMainRoom.innerHTML = "Apagado";
+  } else {
+    stateMainRoom.innerHTML = "Encendido";
+  }
+
+  if (obj.basicRoom == 0) {
+    stateBasicRoom.innerHTML = "Apagado";
+  } else {
+    stateBasicRoom.innerHTML = "Encendido";
+  }
+});
+
+let dataTemperature;
+sockets.on("temp", function (data) {
+  if (dataTemperature != data) {
+    dataTemperature = data;
+    let temperature = [];
+    let date = [];
+    let dataTemp = data.split("\n");
+    for (let i = 0; i < dataTemp.length - 1; i++) {
+      let temp = dataTemp[i].split("|");
+      temperature.push(temp[0]);
+      date.push(temp[1]);
+    }
+    var ctx = document.getElementById("chartTemperature").getContext("2d");
+    var myChart = new Chart(ctx, {
+      type: "line",
+      data: {
+        labels: date,
+        datasets: [
+          {
+            label: "Temperatura",
+            data: temperature,
+            backgroundColor: [
+              "rgba(255, 99, 132, 0.2)",
+              "rgba(54, 162, 235, 0.2)",
+              "rgba(255, 206, 86, 0.2)",
+              "rgba(75, 192, 192, 0.2)",
+              "rgba(153, 102, 255, 0.2)",
+              "rgba(255, 159, 64, 0.2)",
+            ],
+            borderColor: [
+              "rgba(255, 99, 132, 1)",
+              "rgba(54, 162, 235, 1)",
+              "rgba(255, 206, 86, 1)",
+              "rgba(75, 192, 192, 1)",
+              "rgba(153, 102, 255, 1)",
+              "rgba(255, 159, 64, 1)",
+            ],
+            borderWidth: 1,
+          },
+        ],
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: false,
+          },
+        },
+      },
+    });
   }
 });

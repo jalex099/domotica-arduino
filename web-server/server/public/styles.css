@@ -52,4 +52,34 @@ nav a:hover {
 .show {
   display: block;
 }
+
+.btn-turn-on-sprinklers {
+  background-color: #2B3A67;
+  padding: 2vmin 5vmin;
+  display: block;
+  color: #EAE6E5;
+  -webkit-transition: 0.5s linear all;
+  transition: 0.5s linear all;
+}
+
+.btn-turn-on-sprinklers:hover {
+  background-color: #EAE6E5;
+  color: #2B3A67;
+  letter-spacing: 0.5px;
+}
+
+.btn-turn-off-sprinklers {
+  background-color: #D19C1D;
+  padding: 2vmin 5vmin;
+  display: block;
+  color: #EAE6E5;
+  -webkit-transition: 0.5s linear all;
+  transition: 0.5s linear all;
+}
+
+.btn-turn-off-sprinklers:hover {
+  background-color: #EAE6E5;
+  color: #D19C1D;
+  letter-spacing: 0.5px;
+}
 /*# sourceMappingURL=styles.css.map */

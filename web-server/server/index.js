@@ -30,6 +30,8 @@ parser.on("open", () => {
 let pastTemperature;
 let pastDigitalDoor;
 
+
+
 //sockets events
 io.on("connection", (socket) => {
   socket.on("serial", (data) => {
@@ -43,6 +45,12 @@ parser.on("data", (data) => {
   try {
     let json = JSON.parse(data);
     io.emit("data", json);
+    fs.readFile("temperature.txt", "utf-8", (err, dataS) => {
+      if (err) {
+      } else {
+        io.emit("temp", dataS);
+      }
+    });
     var date = dateFormat(new Date(), "yyyy-mm-dd h:MM:ss");
     let temperature = Math.floor(json.temperature);
     let digitalDoor = json.digitalDoor;
@@ -59,7 +67,7 @@ parser.on("data", (data) => {
       pastTemperature = temperature;
     }
 
-    if(digitalDoor != pastDigitalDoor){
+    if (digitalDoor != pastDigitalDoor) {
       if (digitalDoor > 0) {
         if (digitalDoor == 1) {
           fs.appendFile(
@@ -83,11 +91,10 @@ parser.on("data", (data) => {
           );
         }
         pastDigitalDoor = digitalDoor;
-      } else{
+      } else {
         pastDigitalDoor = digitalDoor;
       }
     }
-
   } catch (err) {
     console.log("Error" + err.toString());
   }
@@ -102,3 +109,5 @@ parser.on("data", (data) => {
 port.on("error", (err) => {
   console.log(err);
 });
+
+

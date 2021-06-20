@@ -17,6 +17,7 @@
     />
     <link rel="stylesheet" href="./styles.css" />
     <title>Arduino - Dom&oacute;tica</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.3.2/dist/chart.min.js"></script>
   </head>
   <body>
     <nav class="navbar fixed-top">
@@ -27,27 +28,58 @@
     <div class="container my-5">
       <div class="row">
         <div class="col-12 col-lg-3 py-4">
-          <button class="btn btn-light" id="btnTurnOnSprinklers">
-            Encender regadero
-          </button>
-          <hr class="hr-white" />
-          <button class="btn btn-danger" id="btnTurnOffSprinklers">
-            Apagar regadero
-          </button>
-          <button class="btn btn-light" id="btnTurnOnFanMainRoom">
-            Encender ventilacion cuarto principal
-          </button>
-          <hr class="hr-white" />
-          <button class="btn btn-danger" id="btnTurnOffFanMainRoom">
-            Apagar ventilacion cuarto principal
-          </button>
-          <button class="btn btn-light" id="btnTurnOnFanBasicRoom">
-            Encender ventilacion cuarto secundario
-          </button>
-          <hr class="hr-white" />
-          <button class="btn btn-danger" id="btnTurnOffFanBasicRoom">
-            Apagar ventilacion cuarto secundario
-          </button>
+          <h4>Regaderos</h4>
+          <h6 class="text-muted text-center" id="stateSprincklers"></h6>
+          <hr class="bg-light" />
+          <div class="d-flex flex-wrap justify-content-between">
+            <p
+              class="w-50 btn-turn-on-sprinklers text-center"
+              id="btnTurnOnSprinklers"
+            >
+              Encender
+            </p>
+            <p
+              class="w-50 btn-turn-off-sprinklers text-center"
+              id="btnTurnOffSprinklers"
+            >
+              Apagar
+            </p>
+          </div>
+          <h4>Ventilacion cuarto principal</h4>
+          <h6 class="text-muted text-center" id="stateMainRoom"></h6>
+          <hr class="bg-light" />
+          <div class="d-flex justify-content-between">
+            <p
+              class="w-50 btn-turn-on-sprinklers text-center"
+              id="btnTurnOnFanMainRoom"
+            >
+              Encender
+            </p>
+            <p
+              class="w-50 btn-turn-off-sprinklers text-center"
+              id="btnTurnOffFanMainRoom"
+            >
+              Apagar
+            </p>
+          </div>
+
+          <h4>Ventilacion cuarto secundario</h4>
+          <h6 class="text-muted text-center" id="stateBasicRoom"></h6>
+          <hr class="bg-light" />
+          <div class="d-flex justify-content-between">
+            <p
+              class="w-50 btn-turn-on-sprinklers text-center"
+              id="btnTurnOnFanBasicRoom"
+            >
+              Encender
+            </p>
+            <p
+              class="w-50 btn-turn-off-sprinklers text-center"
+              id="btnTurnOffFanBasicRoom"
+            >
+              Apagar
+            </p>
+          </div>
         </div>
 
         <!--   COLUMNA DIVISORIA     -->
@@ -56,8 +88,6 @@
           <h2 class="font-weight-bold text-center mb-3">
             Estadisticas y datos.
           </h2>
-          <button id="btnSendData">Enviar Data</button>
-          <button id="btnSendDataOff">Enviar Data off</button>
           <div
             class="
               w-50
@@ -116,6 +146,16 @@
             </div>
             <p class="text-justify" id="indicationsDoorGarage"></p>
           </div>
+        </div>
+      </div>
+      <hr class="bg-light" />
+
+      <!--  **************** GRAFICOS ****************** -->
+      <div class="row">
+        <div class="col-12">
+          <h3 class="text-center">Gr&aacute;ficos.</h3>
+          <canvas id="chartTemperature" class="w-100 h-full"></canvas>
+          <canvas id="myChart" class="w-100 h-full"></canvas>
         </div>
       </div>
     </div>

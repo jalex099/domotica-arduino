@@ -57,3 +57,28 @@ nav{
     display: block;
 }
 
+.btn-turn-on-sprinklers{
+    background-color: $blue;
+    padding: 2vmin 5vmin;
+    display: block;
+    color: $white;
+    transition: 0.5s linear all;
+    &:hover{
+        background-color: $white;
+        color: $blue;
+        letter-spacing: 0.5px;
+    }
+}
+
+.btn-turn-off-sprinklers{
+    background-color: $yellow;
+    padding: 2vmin 5vmin;
+    display: block;
+    color: $white;
+    transition: 0.5s linear all;
+    &:hover{
+        background-color: $white;
+        color: $yellow;
+        letter-spacing: 0.5px;
+    }
+}
