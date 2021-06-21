@@ -62,7 +62,7 @@ int VAL_PROXIMITY_DOOR_GARDEN;
 int VAL_PROXIMITY_DOOR_GARAGE;
 
 //LECTURA DE LA PUERTA CON CERROJO DIGITAL
-int VAL_DIGITAL_DOOR;
+int VAL_DIGITAL_DOOR=0;
 
 //ALMACENAR EL ESTADO DE LOS ASPERSORES
 int VAL_SPRINKLERS = 0;
@@ -150,9 +150,9 @@ void serialEvent(){
 
 //FUNCION PARA EVALUAR LA PUERTA CON CERROJO DIGITAL
 void evaluateDigitalDoor(){
+  VAL_DIGITAL_DOOR = 0;
   char key = keypad.getKey();
   if(key){
-    VAL_DIGITAL_DOOR = 0;
     digitalWrite(LED_OK,LOW);
     digitalWrite(LED_ERROR,LOW);
     Password[dir]=key;

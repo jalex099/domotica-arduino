@@ -15,6 +15,8 @@ let alertTemperature = document.querySelector("#alertTemperature");
 let stateSprinklers = document.querySelector("#stateSprincklers");
 let stateMainRoom = document.querySelector("#stateMainRoom");
 let stateBasicRoom = document.querySelector("#stateBasicRoom");
+let securityReport = document.querySelector("#securityReport");
+let digitalDoor = document.querySelector("#digitalDoor");
 
 btnTurnOnFanMainRoom.addEventListener("click", () => {
   sockets.emit("serial", "A");
@@ -106,6 +108,20 @@ sockets.on("data", function (data) {
   } else {
     stateBasicRoom.innerHTML = "Encendido";
   }
+
+  if (obj.digitalDoor == 1) {
+    digitalDoor.innerHTML = "Puerta Digital: Codigo Erroneo.";
+    digitalDoor.classList.remove("text-green");
+    digitalDoor.classList.add("text-red");
+  } else if (obj.digitalDoor == 2) {
+    digitalDoor.innerHTML = "Puerta Digital: Abierto correctamente.";
+    digitalDoor.classList.remove("text-red");
+    digitalDoor.classList.add("text-green");
+  } else {
+    digitalDoor.innerHTML = "Puerta Digital: Cerrado";
+    digitalDoor.classList.remove("text-red");
+    digitalDoor.classList.remove("text-green");
+  }
 });
 
 let dataTemperature;
@@ -157,5 +173,24 @@ sockets.on("temp", function (data) {
         },
       },
     });
+  }
+});
+
+let report;
+sockets.on("securityReport", function (data) {
+  if (data != report) {
+    report = data;
+    let dataSecurity = data.split("\n");
+    let sentence = "";
+    for (let i = 0; i < dataSecurity.length - 1; i++) {
+      let temp = dataSecurity[i].split("|");
+      sentence +=
+        "<div class='mx-auto w-50 d-flex justify-content-between'><h4>" +
+        temp[0] +
+        "</h4> <p class='text-muted'>" +
+        temp[1] +
+        "</p></div>";
+    }
+    securityReport.innerHTML = sentence;
   }
 });
